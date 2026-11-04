@@ -1,7 +1,6 @@
 import {rocketIcon} from '@workday/canvas-accent-icons-web';
 import {SidePanel, useSidePanel} from '@workday/canvas-kit-preview-react/side-panel';
 import {AccentIcon} from '@workday/canvas-kit-react/icon';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {Heading, Text} from '@workday/canvas-kit-react/text';
 import {createStyles, px2rem} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
@@ -11,10 +10,13 @@ const stylesOverride = {
     marginInlineEnd: system.gap.md,
   }),
   pageContainer: createStyles({
+    display: 'flex',
     gap: system.gap.md,
     height: px2rem(320),
   }),
   panelContainer: createStyles({
+    display: 'flex',
+    boxSizing: 'border-box',
     alignItems: 'center',
     padding: system.padding.md,
   }),
@@ -22,6 +24,7 @@ const stylesOverride = {
     color: system.color.fg.default,
   }),
   mainContent: createStyles({
+    display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     flexBasis: 'auto',
@@ -33,20 +36,20 @@ export const AlwaysOpen = () => {
   const {panelProps, labelProps} = useSidePanel();
 
   return (
-    <Flex cs={stylesOverride.pageContainer}>
+    <div className={stylesOverride.pageContainer}>
       <SidePanel {...panelProps}>
-        <Flex cs={stylesOverride.panelContainer}>
+        <div className={stylesOverride.panelContainer}>
           <AccentIcon icon={rocketIcon} cs={stylesOverride.accentIcon} />
           <Heading size="small" cs={stylesOverride.panelHeading} {...labelProps}>
             Tasks Panel
           </Heading>
-        </Flex>
+        </div>
       </SidePanel>
-      <Flex as="main" cs={stylesOverride.mainContent}>
+      <main className={stylesOverride.mainContent}>
         <Text as="p" typeLevel="body.large">
           This is the main content section.
         </Text>
-      </Flex>
-    </Flex>
+      </main>
+    </div>
   );
 };

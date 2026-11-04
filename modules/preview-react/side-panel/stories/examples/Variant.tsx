@@ -1,7 +1,6 @@
 import {SidePanel, useSidePanel} from '@workday/canvas-kit-preview-react/side-panel';
 import {SecondaryButton} from '@workday/canvas-kit-react/button';
 import {CanvasProvider} from '@workday/canvas-kit-react/common';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {Heading, Text} from '@workday/canvas-kit-react/text';
 import {createStyles, px2rem} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
@@ -11,14 +10,18 @@ import {useDirection} from './useDirection';
 
 const stylesOverride = {
   viewport: createStyles({
+    display: 'flex',
     height: px2rem(320),
     backgroundColor: system.color.bg.alt.default,
   }),
   panel: createStyles({
+    display: 'flex',
+    boxSizing: 'border-box',
     alignItems: 'center',
     padding: system.padding.md,
   }),
   main: createStyles({
+    display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'column',
@@ -33,24 +36,24 @@ export const AlternatePanel = () => {
 
   return (
     <CanvasProvider dir={direction}>
-      <Flex cs={stylesOverride.viewport}>
+      <div className={stylesOverride.viewport}>
         <SidePanel {...panelProps} variant="alternate">
           <SidePanel.ToggleButton {...controlProps} />
-          <Flex cs={stylesOverride.panel}>
+          <div className={stylesOverride.panel}>
             <Heading size="small" hidden={!expanded ? true : undefined} {...labelProps}>
               Alternate Panel
             </Heading>
-          </Flex>
+          </div>
         </SidePanel>
-        <Flex as="main" cs={stylesOverride.main}>
+        <main className={stylesOverride.main}>
           <Text as="p" typeLevel="body.large">
             Toggle the content direction
           </Text>
           <SecondaryButton onClick={toggleDirection}>
             Set to {direction === 'ltr' ? 'Right-to-Left' : 'Left-to-Right'}
           </SecondaryButton>
-        </Flex>
-      </Flex>
+        </main>
+      </div>
     </CanvasProvider>
   );
 };

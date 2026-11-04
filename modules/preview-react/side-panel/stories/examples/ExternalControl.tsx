@@ -6,16 +6,18 @@ import {
   useSidePanel,
 } from '@workday/canvas-kit-preview-react/side-panel';
 import {SecondaryButton} from '@workday/canvas-kit-react/button';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {Heading, Text} from '@workday/canvas-kit-react/text';
 import {createStyles, px2rem} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
 
 const stylesOverride = {
   viewport: createStyles({
+    display: 'flex',
     height: px2rem(320),
   }),
   panel: createStyles({
+    display: 'flex',
+    boxSizing: 'border-box',
     alignItems: 'center',
     padding: system.padding.md,
   }),
@@ -23,6 +25,7 @@ const stylesOverride = {
     color: system.color.fg.muted.strong,
   }),
   main: createStyles({
+    display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'column',
@@ -51,7 +54,7 @@ export const ExternalControl = () => {
   );
 
   return (
-    <Flex cs={stylesOverride.viewport}>
+    <div className={stylesOverride.viewport}>
       <SidePanel
         {...panelProps}
         onExpandedChange={expanded => {
@@ -60,21 +63,21 @@ export const ExternalControl = () => {
         onStateTransition={setPanelState}
       >
         {panelState === 'expanded' && (
-          <Flex cs={stylesOverride.panel}>
+          <div className={stylesOverride.panel}>
             <Heading size="small" cs={stylesOverride.panelHeading} {...labelProps}>
               Tasks Panel
             </Heading>
-          </Flex>
+          </div>
         )}
       </SidePanel>
-      <Flex as="main" cs={stylesOverride.main}>
+      <main className={stylesOverride.main}>
         <Text as="p" typeLevel="body.large">
           Control the panel externally
         </Text>
         <SecondaryButton onClick={controlProps.onClick} aria-pressed={expanded}>
           Show Side Panel
         </SecondaryButton>
-      </Flex>
-    </Flex>
+      </main>
+    </div>
   );
 };
