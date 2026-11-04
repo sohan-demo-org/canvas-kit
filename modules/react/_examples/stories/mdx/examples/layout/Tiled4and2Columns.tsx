@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import {Box, Grid} from '@workday/canvas-kit-react/layout';
+import {Grid} from '@workday/canvas-kit-react/layout';
 import {BodyText, Heading} from '@workday/canvas-kit-react/text';
 import {createStencil, createStyles, px2rem} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
@@ -16,6 +16,7 @@ const gridStyles = createStyles({
   gridRowGap: system.gap.sm,
   gridColumnGap: system.gap.xxl,
   '> *:first-child': {
+    boxSizing: 'border-box',
     paddingInline: system.padding.sm,
     border: `${px2rem(1)} solid ${system.color.brand.border.primary}`,
     gridArea: 'Heading',
@@ -24,9 +25,9 @@ const gridStyles = createStyles({
 
 export const Tiled4and2Columns = () => (
   <Grid cs={gridStyles}>
-    <Box>
+    <div>
       <Heading size="medium">4 and 2 Column Tiled View</Heading>
-    </Box>
+    </div>
     <FormSkeleton area="FormTopHalfLeft" text="Form - Top Left Half" />
     <FormSkeleton area="FormQuarterLeft" text="Form - Left Quarter" />
     <FormSkeleton area="FormQuarterRight" text="Form - Right Quarter" />
@@ -53,11 +54,13 @@ const innerGridStyles = createStyles({
   gridGap: system.gap.sm,
   marginBlockEnd: system.gap.xl,
   '> *:first-child': {
+    boxSizing: 'border-box',
     width: px2rem(120),
     height: system.size.xxs,
     backgroundColor: system.color.surface.alt.default,
   },
   '> *:last-child': {
+    boxSizing: 'border-box',
     border: `${px2rem(1)} solid ${system.color.border.default}`,
     width: '100%',
     height: system.size.xxs,
@@ -65,15 +68,15 @@ const innerGridStyles = createStyles({
 });
 
 const FormSkeleton = ({area, text}) => (
-  <Box cs={boxStencil({area})}>
+  <div {...boxStencil({area})}>
     <BodyText size="small" fontWeight="bold">
       {text}
     </BodyText>
     {Array.from({length: 3}).map(() => (
       <Grid cs={innerGridStyles}>
-        <Box />
-        <Box />
+        <div />
+        <div />
       </Grid>
     ))}
-  </Box>
+  </div>
 );

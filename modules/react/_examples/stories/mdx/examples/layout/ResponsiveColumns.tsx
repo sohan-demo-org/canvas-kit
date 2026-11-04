@@ -1,10 +1,31 @@
 import * as React from 'react';
 
-import {Box, Grid} from '@workday/canvas-kit-react/layout';
+import {Grid} from '@workday/canvas-kit-react/layout';
 import {SegmentedControl} from '@workday/canvas-kit-react/segmented-control';
 import {BodyText, Heading} from '@workday/canvas-kit-react/text';
-import {px2rem} from '@workday/canvas-kit-styling';
+import {createStencil, px2rem} from '@workday/canvas-kit-styling';
 import {base, system} from '@workday/canvas-tokens-web';
+
+const containerStencil = createStencil({
+  vars: {
+    maxWidth: '',
+  },
+  base: ({maxWidth}) => ({
+    maxWidth,
+    padding: system.padding.md,
+    border: `${px2rem(2)} solid ${system.color.border.default}`,
+  }),
+});
+
+const columnStencil = createStencil({
+  vars: {
+    backgroundColor: '',
+  },
+  base: ({backgroundColor}) => ({
+    height: px2rem(120),
+    backgroundColor,
+  }),
+});
 
 export const ResponsiveColumns = () => {
   const [screen, setScreen] = React.useState('100%');
@@ -21,21 +42,15 @@ export const ResponsiveColumns = () => {
           <SegmentedControl.Item data-id="25%">25%</SegmentedControl.Item>
         </SegmentedControl.List>
       </SegmentedControl>
-      <Box
-        cs={{
-          maxWidth: screen,
-          padding: system.padding.md,
-          border: `${px2rem(2)} solid ${system.color.border.default}`,
-        }}
-      >
+      <div {...containerStencil({maxWidth: screen})}>
         <Grid
           cs={{gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gridGap: system.gap.md}}
         >
-          <Box cs={{height: px2rem(120), backgroundColor: base.blue400}} />
-          <Box cs={{height: px2rem(120), backgroundColor: base.blue500}} />
-          <Box cs={{height: px2rem(120), backgroundColor: base.blue600}} />
+          <div {...columnStencil({backgroundColor: base.blue400})} />
+          <div {...columnStencil({backgroundColor: base.blue500})} />
+          <div {...columnStencil({backgroundColor: base.blue600})} />
         </Grid>
-      </Box>
+      </div>
     </>
   );
 };

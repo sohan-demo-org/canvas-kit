@@ -9,8 +9,7 @@ import {
   createModelHook,
   createSubcomponent,
 } from '@workday/canvas-kit-react/common';
-import {Box} from '@workday/canvas-kit-react/layout';
-import {handleCsProp} from '@workday/canvas-kit-styling';
+import {createStyles, handleCsProp} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
 
 export type Theme = 'dark' | 'light';
@@ -99,6 +98,16 @@ const CustomCard = createContainer(Card)({
   return <Card {...handleCsProp(elemProps, [{boxShadow: system.depth[2]}])}>{children}</Card>;
 });
 
+const lightHeadingStyles = createStyles({
+  boxSizing: 'border-box',
+  color: system.color.fg.inverse,
+});
+
+const darkHeadingStyles = createStyles({
+  boxSizing: 'border-box',
+  color: system.color.fg.default,
+});
+
 /**
  * Usage
  */
@@ -113,7 +122,9 @@ export const Template = () => {
   return (
     <CustomCard model={model}>
       <CustomCard.Heading>
-        <Box cs={{color: model.state.contrastColor}}>Change your theme {icon}</Box>
+        <div className={model.state.theme === 'dark' ? lightHeadingStyles : darkHeadingStyles}>
+          Change your theme {icon}
+        </div>
       </CustomCard.Heading>
       <CustomCard.Body>
         <CustomCard.Button ref={buttonRef}>Toggle</CustomCard.Button>

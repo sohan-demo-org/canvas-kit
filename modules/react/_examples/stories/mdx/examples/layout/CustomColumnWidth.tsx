@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import {Box, Grid} from '@workday/canvas-kit-react/layout';
+import {Grid} from '@workday/canvas-kit-react/layout';
 import {BodyText, Heading} from '@workday/canvas-kit-react/text';
 import {createStencil, createStyles, px2rem} from '@workday/canvas-kit-styling';
 import {base, system} from '@workday/canvas-tokens-web';
@@ -29,15 +29,15 @@ export const CustomColumnWidth = () => (
   <>
     <Heading size="medium">Custom Column Width</Heading>
     <Grid cs={gridStyles}>
-      <Box cs={boxStencil({backgroundColor: base.blue500})}>
+      <div {...boxStencil({backgroundColor: base.blue500})}>
         <BodyText size="small">4 column width</BodyText>
-      </Box>
-      <Box cs={boxStencil({backgroundColor: base.blue600})}>
+      </div>
+      <div {...boxStencil({backgroundColor: base.blue600})}>
         <BodyText size="small">2 column width</BodyText>
-      </Box>
-      <Box cs={boxStencil({backgroundColor: base.blue700})}>
+      </div>
+      <div {...boxStencil({backgroundColor: base.blue700})}>
         <BodyText size="small">6 column width</BodyText>
-      </Box>
+      </div>
     </Grid>
   </>
 );
