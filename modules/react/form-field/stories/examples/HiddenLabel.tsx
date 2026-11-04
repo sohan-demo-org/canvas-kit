@@ -6,9 +6,13 @@ import {
   useFormFieldModel,
 } from '@workday/canvas-kit-react/form-field';
 import {SystemIcon} from '@workday/canvas-kit-react/icon';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {InputGroup, TextInput} from '@workday/canvas-kit-react/text-input';
+import {createStyles} from '@workday/canvas-kit-styling';
 import {searchIcon} from '@workday/canvas-system-icons-web';
+
+const containerStyles = createStyles({
+  display: 'flex',
+});
 
 /**
  * Using `as={InputGroup}` on `FormField.Input` will break the label associations necessary for accessibility.
@@ -26,7 +30,7 @@ export const HiddenLabel = () => {
   };
 
   return (
-    <Flex>
+    <div className={containerStyles}>
       <FormField model={model}>
         <FormField.Label isHidden>Search</FormField.Label>
         <FormField.Field as={InputGroup}>
@@ -41,6 +45,6 @@ export const HiddenLabel = () => {
           />
         </FormField.Field>
       </FormField>
-    </Flex>
+    </div>
   );
 };
