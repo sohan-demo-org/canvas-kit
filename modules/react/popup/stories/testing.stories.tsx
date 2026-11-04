@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {DeleteButton, SecondaryButton} from '@workday/canvas-kit-react/button';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {
   Popup,
   useCloseOnEscape,
@@ -11,7 +10,7 @@ import {
   usePopupModel,
   useReturnFocus,
 } from '@workday/canvas-kit-react/popup';
-import {px2rem} from '@workday/canvas-kit-styling';
+import {createStyles, px2rem} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
 
 import {CloseOnTargetHiddenTest as CloseOnTargetHiddenTestExample} from './examples/CloseOnTargetHiddenTest';
@@ -20,6 +19,11 @@ import {MixedPopupTypes as MixedPopupTypesExample} from './examples/MixedPopupTy
 import {PopupWithNonHidablePopup as PopupWithNonHidablePopupExample} from './examples/PopupWithNonHidablePopup';
 import {ReturnFocusTest as ReturnFocusTestExample} from './examples/ReturnFocusTest';
 import {TooltipReturnFocus as TooltipReturnFocusExample} from './examples/TooltipReturnFocus';
+
+const flexStyles = createStyles({
+  display: 'flex',
+  gap: system.gap.md,
+});
 
 export default {
   title: 'Testing/Popups/Popup',
@@ -133,7 +137,7 @@ export const PopupWithBodyScroll = {
           <br />
           <br />
         </div>
-        <Flex cs={{gap: system.gap.md}}>
+        <div className={flexStyles}>
           <Popup.Target as={DeleteButton}>Delete Item</Popup.Target>
           <div aria-owns={popupId} style={{position: 'absolute'}} />
           <Popup.Popper>
@@ -143,15 +147,15 @@ export const PopupWithBodyScroll = {
               <Popup.Body>
                 <p>Are you sure you'd like to delete the item titled 'My Item'?</p>
               </Popup.Body>
-              <Flex cs={{gap: system.gap.md}}>
+              <div className={flexStyles}>
                 <Popup.CloseButton as={DeleteButton}>Delete</Popup.CloseButton>
                 <Popup.CloseButton>Cancel</Popup.CloseButton>
-              </Flex>
+              </div>
             </Popup.Card>
           </Popup.Popper>
           <SecondaryButton>Next Focusable Button</SecondaryButton>
           <SecondaryButton>Focusable Button After Popup</SecondaryButton>
-        </Flex>
+        </div>
       </Popup>
     );
   },

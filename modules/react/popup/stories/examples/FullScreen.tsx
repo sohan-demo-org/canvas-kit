@@ -3,7 +3,6 @@ import screenfull from 'screenfull';
 
 import {SecondaryButton} from '@workday/canvas-kit-react/button';
 import {useIsFullscreen} from '@workday/canvas-kit-react/common';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {
   Popup,
   useCloseOnEscape,
@@ -16,8 +15,20 @@ import {
   useTransferOnFullscreenEnter,
   useTransferOnFullscreenExit,
 } from '@workday/canvas-kit-react/popup';
-import {px2rem} from '@workday/canvas-kit-styling';
+import {createStyles, px2rem} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
+
+const fullscreenContainerStyles = createStyles({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  background: system.color.bg.default,
+});
+
+const buttonRowStyles = createStyles({
+  display: 'flex',
+  gap: system.gap.md,
+});
 
 const SelfClosePopup = () => {
   const model = usePopupModel();
@@ -98,18 +109,15 @@ export const FullScreen = () => {
   return (
     <>
       <SecondaryButton onClick={enterFullScreen}>Open Fullscreen</SecondaryButton>
-      <Flex
-        ref={fullscreenElementRef}
-        cs={{alignItems: 'center', justifyContent: 'center', background: system.color.bg.default}}
-      >
-        <Flex cs={{gap: system.gap.md}}>
+      <div ref={fullscreenElementRef} className={fullscreenContainerStyles}>
+        <div className={buttonRowStyles}>
           <SelfClosePopup />
           <TransferClosePopup />
           {isFullscreen ? (
             <SecondaryButton onClick={exitFullscreen}>Exit fullscreen</SecondaryButton>
           ) : null}
-        </Flex>
-      </Flex>
+        </div>
+      </div>
     </>
   );
 };
