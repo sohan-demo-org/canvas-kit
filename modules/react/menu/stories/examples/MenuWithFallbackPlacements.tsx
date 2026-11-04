@@ -1,13 +1,21 @@
 import React from 'react';
 
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {Menu} from '@workday/canvas-kit-react/menu';
 import {Placement} from '@workday/canvas-kit-react/popup';
 import {BodyText} from '@workday/canvas-kit-react/text';
-import {px2rem} from '@workday/canvas-kit-styling';
+import {createStyles, px2rem} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
 
 import {PopperController} from '../../../../../utils/storybook';
+
+const containerStyles = createStyles({
+  display: 'flex',
+  width: '100%',
+  marginBlockStart: px2rem(240),
+  justifyContent: 'center',
+  alignItems: 'center',
+  flexDirection: 'column',
+});
 
 export const MenuWithFallbackPlacements = () => {
   const [placement, setPlacement] = React.useState<Placement>('top');
@@ -37,15 +45,7 @@ export const MenuWithFallbackPlacements = () => {
         onSetMarginLeftBtn={handleMarginLeftBtn}
         onSetMarginRightBtn={handleMarginRightBtn}
       >
-        <Flex
-          cs={{
-            width: '100%',
-            marginBlockStart: px2rem(240),
-            justifyContent: 'center',
-            alignItems: 'center',
-            flexDirection: 'column',
-          }}
-        >
+        <div className={containerStyles}>
           <Menu onSelect={data => setSelected(data.id)}>
             <Menu.Target cs={{marginInlineStart: marginLeftBtn, marginInlineEnd: marginRightBtn}}>
               Open Menu
@@ -68,7 +68,7 @@ export const MenuWithFallbackPlacements = () => {
               Selected: <span data-testid="output">{selected}</span>
             </BodyText>
           </Menu>
-        </Flex>
+        </div>
       </PopperController>
     </div>
   );
