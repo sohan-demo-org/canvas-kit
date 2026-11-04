@@ -1,15 +1,29 @@
 import React from 'react';
 
 import {Tabs} from '@workday/canvas-kit-preview-react/tabs';
-import {Box} from '@workday/canvas-kit-react/layout';
 import {ComponentStatesTable, StaticStates} from '@workday/canvas-kit-react/testing';
-import {px2rem} from '@workday/canvas-kit-styling';
+import {createStencil, createStyles, px2rem} from '@workday/canvas-kit-styling';
 import {configureIcon} from '@workday/canvas-system-icons-web';
 import {system} from '@workday/canvas-tokens-web';
 
 import {customColorTheme} from '../../../../utils/storybook';
 import {Basic} from './examples/Basic';
 import {RightToLeft} from './examples/RightToLeft';
+
+const overflowContainerStyles = createStyles({
+  boxSizing: 'border-box',
+  width: px2rem(360),
+});
+
+const containerWidthStencil = createStencil({
+  vars: {
+    width: '100%',
+  },
+  base: ({width}) => ({
+    boxSizing: 'border-box',
+    width,
+  }),
+});
 
 const fontDelay = 150; // best guess for the font delay to prevent incorrect Chromatic regressions
 
@@ -159,9 +173,9 @@ export const Overflow = {
   },
   render: () => {
     return (
-      <Box cs={{width: px2rem(360)}}>
+      <div className={overflowContainerStyles}>
         <OverflowTabs />
-      </Box>
+      </div>
     );
   },
 };
@@ -180,9 +194,9 @@ export const ContainerWidth = {
           columnProps={[{label: 'Overflow Tabs', props: {}}]}
         >
           {({width}) => (
-            <Box cs={{width}}>
+            <div {...containerWidthStencil({width})}>
               <OverflowTabs />
-            </Box>
+            </div>
           )}
         </ComponentStatesTable>
       </StaticStates>
