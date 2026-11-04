@@ -1,6 +1,5 @@
 import {SecondaryButton, TertiaryButton} from '@workday/canvas-kit-react/button';
 import {FormField} from '@workday/canvas-kit-react/form-field';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {
   Popup,
   useCloseOnEscape,
@@ -12,6 +11,12 @@ import {
 import {TextInput} from '@workday/canvas-kit-react/text-input';
 import {createStyles, px2rem} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
+
+const buttonRowStyles = createStyles({
+  display: 'flex',
+  marginBlockEnd: px2rem(400),
+  marginInlineStart: px2rem(410),
+});
 
 const containerStyles = createStyles({
   width: px2rem(400),
@@ -44,12 +49,12 @@ export const ReturnFocusTest = () => {
             <FormField.Label>Name</FormField.Label>
             <FormField.Input as={TextInput} />
           </FormField>
-          <Flex cs={{marginBlockEnd: px2rem(400), marginInlineStart: px2rem(410)}}>
+          <div className={buttonRowStyles}>
             <SecondaryButton id="return-focus-button-tabindex" tabIndex={-1}>
               Button with TabIndex=-1
             </SecondaryButton>
             <Popup.Target data-testid="target">Open Popup</Popup.Target>
-          </Flex>
+          </div>
           <Popup.Popper>
             <Popup.Card>
               <Popup.CloseIcon aria-label="Close" />

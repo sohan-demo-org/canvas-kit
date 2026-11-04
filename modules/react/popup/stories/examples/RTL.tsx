@@ -1,9 +1,11 @@
 import {DeleteButton, SecondaryButton} from '@workday/canvas-kit-react/button';
 import {CanvasProvider} from '@workday/canvas-kit-react/common';
-import {Box, Flex} from '@workday/canvas-kit-react/layout';
 import {Popup} from '@workday/canvas-kit-react/popup';
-import {px2rem} from '@workday/canvas-kit-styling';
-import {system} from '@workday/canvas-tokens-web';
+import {createStyles, px2rem} from '@workday/canvas-kit-styling';
+
+const bodyStyles = createStyles({
+  marginBlock: '0',
+});
 
 export const RTL = () => {
   return (
@@ -12,9 +14,7 @@ export const RTL = () => {
         <Popup.CloseIcon aria-label="סגור" />
         <Popup.Heading>למחוק פריט</Popup.Heading>
         <Popup.Body>
-          <Box as="p" cs={{marginBlock: '0'}}>
-            האם ברצונך למחוק פריט זה
-          </Box>
+          <p className={bodyStyles}>האם ברצונך למחוק פריט זה</p>
         </Popup.Body>
         <Popup.ButtonGroup>
           <SecondaryButton>לְבַטֵל</SecondaryButton>

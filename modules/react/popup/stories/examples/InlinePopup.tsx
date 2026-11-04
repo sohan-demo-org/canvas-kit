@@ -1,7 +1,6 @@
 import React from 'react';
 
 import {DeleteButton} from '@workday/canvas-kit-react/button';
-import {Box, Flex} from '@workday/canvas-kit-react/layout';
 import {
   Popup,
   useCloseOnEscape,
@@ -29,6 +28,7 @@ const flexStyles = createStyles({
 });
 
 const clipContainerStyles = createStyles({
+  boxSizing: 'border-box',
   padding: system.padding.md,
   border: `${px2rem(2)} dashed ${system.color.border.info.default}`,
   height: px2rem(200),
@@ -37,6 +37,7 @@ const clipContainerStyles = createStyles({
 });
 
 const visibleContainerStyles = createStyles({
+  boxSizing: 'border-box',
   padding: system.padding.md,
   border: `${px2rem(2)} dashed ${system.color.border.info.default}`,
   height: px2rem(200),
@@ -45,6 +46,7 @@ const visibleContainerStyles = createStyles({
 });
 
 const scrollContainerStyles = createStyles({
+  boxSizing: 'border-box',
   padding: system.padding.md,
   border: `${px2rem(2)} dashed ${system.color.border.info.default}`,
   height: px2rem(200),
@@ -78,7 +80,7 @@ function SingleInlinePopup({
   useFocusRedirect(model);
 
   return (
-    <Box cs={containerStyles}>
+    <div className={containerStyles}>
       <Heading size="small" as="h4" cs={headingStyles}>
         {overflowLabel}
       </Heading>
@@ -88,7 +90,7 @@ function SingleInlinePopup({
           <Popup.Card cs={cardStyles}>
             <Popup.Heading>Delete Item</Popup.Heading>
             <Popup.Body>
-              <Box as="p">Are you sure you'd like to delete the item titled 'My Item'?</Box>
+              <p>Are you sure you'd like to delete the item titled 'My Item'?</p>
             </Popup.Body>
             <Popup.ButtonGroup>
               <Popup.CloseButton ref={initialFocusRef}>Cancel</Popup.CloseButton>
@@ -97,14 +99,14 @@ function SingleInlinePopup({
           </Popup.Card>
         </Popup.Popper>
       </Popup>
-    </Box>
+    </div>
   );
 }
 
 export const InlinePopup = () => {
   return (
     <>
-      <Flex cs={comparisonLayoutStyles}>
+      <div className={comparisonLayoutStyles}>
         <SingleInlinePopup overflowLabel="overflow: clip" containerStyles={clipContainerStyles} />
         <SingleInlinePopup
           overflowLabel="overflow: scroll"
@@ -114,7 +116,7 @@ export const InlinePopup = () => {
           overflowLabel="overflow: visible"
           containerStyles={visibleContainerStyles}
         />
-      </Flex>
+      </div>
       <p>
         With <code>overflow: visible</code>, the popup can extend past the dashed border. With{' '}
         <code>overflow: scroll</code> (or <code>hidden</code> / <code>clip</code>), the popup is
