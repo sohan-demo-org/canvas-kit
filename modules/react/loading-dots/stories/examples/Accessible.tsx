@@ -2,13 +2,13 @@ import React from 'react';
 
 import {SecondaryButton} from '@workday/canvas-kit-react/button';
 import {AccessibleHide, AriaLiveRegion} from '@workday/canvas-kit-react/common';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {LoadingDots} from '@workday/canvas-kit-react/loading-dots';
 import {createStyles} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
 
 const styleOverrides = {
   parentContainer: createStyles({
+    display: 'flex',
     gap: system.gap.md,
   }),
   loadingStyles: createStyles({
@@ -37,7 +37,7 @@ export const Accessible = () => {
   };
 
   return (
-    <Flex cs={styleOverrides.parentContainer}>
+    <div className={styleOverrides.parentContainer}>
       <SecondaryButton onClick={handleLoad}>Start</SecondaryButton>
       <AriaLiveRegion aria-label="Loading">
         {loadingState === 'loading' && (
@@ -50,6 +50,6 @@ export const Accessible = () => {
         )}
         {loadingState === 'success' && <AccessibleHide>Complete.</AccessibleHide>}
       </AriaLiveRegion>
-    </Flex>
+    </div>
   );
 };
