@@ -2,7 +2,6 @@ import {jsx} from '@emotion/react';
 import styled from '@emotion/styled';
 
 import {PrimaryButton} from '@workday/canvas-kit-react/button';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {createStyles, cssVar} from '@workday/canvas-kit-styling';
 import {base, system} from '@workday/canvas-tokens-web';
 
@@ -20,6 +19,28 @@ const StyledPrimaryButton = styled(PrimaryButton)({
 
 const styles = createStyles({
   backgroundColor: backgroundColors.createStyles,
+});
+
+const containerStyles = createStyles({
+  boxSizing: 'border-box',
+  display: 'flex',
+  flexDirection: 'column',
+  minHeight: '100vh',
+  gap: system.gap.md,
+});
+
+const sectionStyles = createStyles({
+  boxSizing: 'border-box',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: system.gap.md,
+});
+
+const buttonRowStyles = createStyles({
+  boxSizing: 'border-box',
+  display: 'flex',
+  flexDirection: 'row',
+  gap: system.gap.md,
 });
 
 const CSSProp = () => (
@@ -82,15 +103,15 @@ const cssProp = {css: {backgroundColor: backgroundColors.cssProp}} as {};
 
 export const StylingOverrides = () => {
   return (
-    <Flex cs={{flexDirection: 'column', minHeight: '100vh', gap: system.gap.md}}>
-      <Flex cs={{flexDirection: 'column', gap: system.gap.md}}>
+    <div className={containerStyles}>
+      <div className={sectionStyles}>
         <h2>Buttons</h2>
-        <Flex cs={{flexDirection: 'row', gap: system.gap.md}}>
+        <div className={buttonRowStyles}>
           <PrimaryButton cs={styles}>createStyles</PrimaryButton>
           {jsx(PrimaryButton, {...cssProp}, 'CSS Prop')}
           <StyledPrimaryButton>Styled Component</StyledPrimaryButton>
           <PrimaryButton background={backgroundColors.styleProps}>Style Props</PrimaryButton>
-        </Flex>
+        </div>
         <div>
           {jsx(
             PrimaryButton,
@@ -141,7 +162,7 @@ export const StylingOverrides = () => {
             Styled Component + Style Props
           </StyledPrimaryButton>
         </div>
-      </Flex>
+      </div>
       <div>
         <p>Legend:</p>
         <CreateStyles />
@@ -153,6 +174,6 @@ export const StylingOverrides = () => {
         Style Precedence: <strong>createStyles</strong> &gt; <strong>CSS Props</strong> &gt;{' '}
         <strong>Styled Component</strong> &gt; <strong>Style Props</strong>
       </p>
-    </Flex>
+    </div>
   );
 };
