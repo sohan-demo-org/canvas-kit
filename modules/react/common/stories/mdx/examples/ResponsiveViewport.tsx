@@ -1,8 +1,10 @@
 import styled from '@emotion/styled';
 
 import {getTheme} from '@workday/canvas-kit-react/common';
-import {Box, Grid} from '@workday/canvas-kit-react/layout';
-import {borderRadius, colors, space, type} from '@workday/canvas-kit-react/tokens';
+import {Grid} from '@workday/canvas-kit-react/layout';
+import {borderRadius, colors, space} from '@workday/canvas-kit-react/tokens';
+import {createStyles, px2rem} from '@workday/canvas-kit-styling';
+import {base, system} from '@workday/canvas-tokens-web';
 
 const theme = getTheme();
 const {up, down} = theme.canvas.breakpoints;
@@ -28,64 +30,17 @@ const styles = {
       padding: space.m,
     },
   },
-  parentContainer: {
-    [small]: {
-      maxWidth: '100%',
-    },
-    [medium]: {
-      maxWidth: 1000,
-    },
-  },
-  header: {
-    [small]: {
-      ...type.levels.body.small,
-      ...type.variants.inverse,
-      fontWeight: type.properties.fontWeights.bold,
-    },
-    [medium]: {
-      ...type.levels.body.large,
-      ...type.variants.inverse,
-      fontWeight: type.properties.fontWeights.bold,
-    },
-  },
-  greyBar: {
-    [small]: {
-      display: 'none',
-    },
-    [medium]: {
-      display: 'block',
-      borderRadius: '0 0 20px 20px',
-    },
-  },
-  circle: {
-    [small]: {
-      height: 5,
-      width: 75,
-      bottom: 10,
-      backgroundColor: 'grey',
-    },
-    [medium]: {
-      height: 40,
-      width: 40,
-      bottom: -95,
-      backgroundColor: 'black',
-    },
-  },
-  circleTop: {
-    [small]: {
-      height: 15,
-      width: 40,
-      top: 10,
-    },
-    [medium]: {
-      display: 'none',
-    },
-  },
 };
 
-const ParentCont = styled(Box.as('div'))({
-  ...styles.parentContainer,
+const parentContainerStyles = createStyles({
+  boxSizing: 'border-box',
   position: 'relative',
+  [small]: {
+    maxWidth: '100%',
+  },
+  [medium]: {
+    maxWidth: px2rem(1000),
+  },
 });
 
 const StyledParentWrapper = styled(Grid.as('section'))({
@@ -94,13 +49,21 @@ const StyledParentWrapper = styled(Grid.as('section'))({
   position: 'relative',
 });
 
-const CircleTop = styled(Box)({
-  ...styles.circleTop,
-  backgroundColor: 'black',
-  borderRadius: borderRadius.circle,
+const circleTopStyles = createStyles({
+  boxSizing: 'border-box',
+  backgroundColor: base.neutral1000,
+  borderRadius: system.shape.full,
   position: 'absolute',
   left: '50%',
   transform: 'translate(-50%, 0)',
+  [small]: {
+    height: px2rem(15),
+    width: px2rem(40),
+    top: px2rem(10),
+  },
+  [medium]: {
+    display: 'none',
+  },
 });
 
 const StyledHeaderContainer = styled(Grid.as('div'))({
@@ -131,23 +94,53 @@ const StyledFooterContainer = styled(Grid.as('div'))({
   padding: space.s,
 });
 
-const StyledHeading = styled(Box.as('h3'))({
-  ...styles.header,
+const headingStyles = createStyles({
+  boxSizing: 'border-box',
   margin: 0,
+  [small]: {
+    ...system.type.body.sm,
+    color: system.color.fg.inverse,
+    fontWeight: system.fontWeight.bold,
+  },
+  [medium]: {
+    ...system.type.body.lg,
+    color: system.color.fg.inverse,
+    fontWeight: system.fontWeight.bold,
+  },
 });
 
-const GreyBar = styled(Box)({
-  ...styles.greyBar,
-  height: 70,
-  backgroundColor: 'grey',
+const greyBarStyles = createStyles({
+  boxSizing: 'border-box',
+  height: px2rem(70),
+  backgroundColor: base.neutral500,
+  [small]: {
+    display: 'none',
+  },
+  [medium]: {
+    display: 'block',
+    borderBottomLeftRadius: px2rem(20),
+    borderBottomRightRadius: px2rem(20),
+  },
 });
 
-const Circle = styled(Box)({
-  ...styles.circle,
-  borderRadius: borderRadius.circle,
+const circleStyles = createStyles({
+  boxSizing: 'border-box',
+  borderRadius: system.shape.full,
   position: 'absolute',
   left: '50%',
   transform: 'translate(-50%, 0)',
+  [small]: {
+    height: px2rem(5),
+    width: px2rem(75),
+    bottom: px2rem(10),
+    backgroundColor: base.neutral500,
+  },
+  [medium]: {
+    height: px2rem(40),
+    width: px2rem(40),
+    bottom: px2rem(-95),
+    backgroundColor: base.neutral1000,
+  },
 });
 
 /* Example is outdated in v15 as we are moving away from styled-components.
@@ -155,24 +148,24 @@ const Circle = styled(Box)({
  */
 export const ResponsiveViewport = () => {
   return (
-    <ParentCont>
+    <div className={parentContainerStyles}>
       <StyledParentWrapper>
-        <CircleTop></CircleTop>
+        <div className={circleTopStyles} />
         <StyledHeaderContainer>
-          <StyledHeading>Header</StyledHeading>
+          <h3 className={headingStyles}>Header</h3>
         </StyledHeaderContainer>
         <StyledLeftContent>
-          <StyledHeading>Small Content</StyledHeading>
+          <h3 className={headingStyles}>Small Content</h3>
         </StyledLeftContent>
         <StyledRightContent>
-          <StyledHeading>Body Content</StyledHeading>
+          <h3 className={headingStyles}>Body Content</h3>
         </StyledRightContent>
         <StyledFooterContainer>
-          <StyledHeading>Footer</StyledHeading>
+          <h3 className={headingStyles}>Footer</h3>
         </StyledFooterContainer>
-        <Circle></Circle>
+        <div className={circleStyles} />
       </StyledParentWrapper>
-      <GreyBar></GreyBar>
-    </ParentCont>
+      <div className={greyBarStyles} />
+    </div>
   );
 };

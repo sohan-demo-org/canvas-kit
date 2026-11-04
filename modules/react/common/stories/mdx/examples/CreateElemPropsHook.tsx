@@ -8,7 +8,7 @@ import {
   createSubcomponent,
   useUniqueId,
 } from '@workday/canvas-kit-react/common';
-import {Box, BoxProps} from '@workday/canvas-kit-react/layout';
+import {CSProps, handleCsProp} from '@workday/canvas-kit-styling';
 
 type Visibility = 'hidden' | 'visible';
 
@@ -88,7 +88,7 @@ const DisclosureTarget = createSubcomponent('button')({
 });
 
 // Disclosure Content
-interface DisclosureContentProps extends BoxProps {}
+interface DisclosureContentProps extends CSProps {}
 const useDisclosureContent = createElemPropsHook(useDisclosureModel)(({state}) => {
   return {
     style: state.visibility !== 'hidden' ? {} : {display: 'none'},
@@ -101,11 +101,7 @@ const DisclosureContent = createSubcomponent('div')({
   // attached our elemPropsHook to the component
   elemPropsHook: useDisclosureContent,
 })<DisclosureContentProps>(({children, ...elementProps}, Element) => {
-  return (
-    <Box as={Element} {...elementProps}>
-      {children}
-    </Box>
-  );
+  return <Element {...handleCsProp(elementProps)}>{children}</Element>;
 });
 
 // Disclosure Container Component

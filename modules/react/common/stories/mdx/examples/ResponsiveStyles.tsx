@@ -2,9 +2,19 @@ import * as React from 'react';
 
 import {useResizeObserver, useResponsiveContainerStyles} from '@workday/canvas-kit-react/common';
 import {FormField} from '@workday/canvas-kit-react/form-field';
-import {Box, Flex, Grid} from '@workday/canvas-kit-react/layout';
+import {Grid} from '@workday/canvas-kit-react/layout';
 import {Select} from '@workday/canvas-kit-react/select';
 import {Text} from '@workday/canvas-kit-react/text';
+import {createStencil, px2rem} from '@workday/canvas-kit-styling';
+
+const containerStencil = createStencil({
+  vars: {
+    width: '',
+  },
+  base: ({width}) => ({
+    width,
+  }),
+});
 
 const HeadingText = ({children, ...props}) => (
   <Text as="p" fontSize={20} fontWeight="bold" color="frenchVanilla100" margin={0} {...props}>
@@ -85,7 +95,7 @@ export const ResponsiveContainer = () => {
   };
 
   return (
-    <Box ref={ref} width={contWidth}>
+    <div ref={ref} {...containerStencil({width: px2rem(contWidth)})}>
       <FormField>
         <FormField.Label>Container Size</FormField.Label>
         <Select items={['1024px', '768px', '320px']} initialSelectedIds={['1024px']}>
@@ -113,6 +123,6 @@ export const ResponsiveContainer = () => {
           </Footer>
         </Grid>
       </Grid>
-    </Box>
+    </div>
   );
 };
