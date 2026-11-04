@@ -1,9 +1,8 @@
 import * as React from 'react';
 
 import {Breadcrumbs, useBreadcrumbsModel} from '@workday/canvas-kit-react/breadcrumbs';
-import {Box} from '@workday/canvas-kit-react/layout';
 import {SegmentedControl} from '@workday/canvas-kit-react/segmented-control';
-import {px2rem} from '@workday/canvas-kit-styling';
+import {createStencil, px2rem} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
 
 export interface Breadcrumb {
@@ -11,6 +10,16 @@ export interface Breadcrumb {
   link?: string;
   text: string;
 }
+
+const containerStencil = createStencil({
+  vars: {
+    width: '100%',
+  },
+  base: ({width}) => ({
+    width,
+    marginBlockEnd: system.gap.lg,
+  }),
+});
 
 export const OverflowBreadcrumbs = ({width = '100%'}) => {
   const [items] = React.useState<Breadcrumb[]>([
@@ -27,7 +36,7 @@ export const OverflowBreadcrumbs = ({width = '100%'}) => {
   const [containerWidth, setContainerWidth] = React.useState(width);
   return (
     <div>
-      <Box cs={{width: containerWidth, marginBlockEnd: system.gap.lg}}>
+      <div {...containerStencil({width: containerWidth})}>
         <div style={{display: 'flex', flexDirection: 'column'}}>
           <span>Current Container Width: {containerWidth}</span>
           <span>Overflow visibility: {model.menu.state.visibility}</span>
@@ -55,7 +64,7 @@ export const OverflowBreadcrumbs = ({width = '100%'}) => {
             </Breadcrumbs.Menu.Card>
           </Breadcrumbs.Menu.Popper>
         </Breadcrumbs>
-      </Box>
+      </div>
       <hr />
       <h4>Change Breadcrumbs container size</h4>
       <SegmentedControl
