@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import {PrimaryButton} from '@workday/canvas-kit-react/button';
 import {createComponent} from '@workday/canvas-kit-react/common';
-import {Box, BoxProps, Flex} from '@workday/canvas-kit-react/layout';
 import {Modal} from '@workday/canvas-kit-react/modal';
 import {Text} from '@workday/canvas-kit-react/text';
 import {calc, createStencil, createStyles, handleCsProp} from '@workday/canvas-kit-styling';
@@ -32,8 +31,7 @@ const MediaImage = createComponent('img')({
     const [loaded, setLoaded] = React.useState(false);
 
     return (
-      <Box
-        as={Element}
+      <Element
         ref={ref}
         onLoad={() => setLoaded(true)}
         {...handleCsProp(elemProps, mediaImageStencil({loaded}))}
@@ -43,6 +41,7 @@ const MediaImage = createComponent('img')({
 });
 
 const mediaStyles = createStyles({
+  boxSizing: 'border-box',
   width: calc.add('100%', calc.multiply(system.size.sm, 2)),
   marginInlineStart: calc.negate(system.gap.xl),
   marginBlockStart: system.gap.lg,
@@ -52,13 +51,19 @@ const mediaStyles = createStyles({
 const Media = createComponent('div')({
   displayName: 'Media',
   subComponents: {Image: MediaImage},
-  Component: ({children, ...elemProps}: BoxProps, ref, Element) => {
+  Component: ({children, ...elemProps}: React.HTMLAttributes<HTMLDivElement>, ref, Element) => {
     return (
-      <Box as={Element} ref={ref} {...handleCsProp(elemProps, mediaStyles)}>
+      <Element ref={ref} {...handleCsProp(elemProps, mediaStyles)}>
         {children}
-      </Box>
+      </Element>
     );
   },
+});
+
+const actionsStyles = createStyles({
+  boxSizing: 'border-box',
+  display: 'flex',
+  gap: system.gap.md,
 });
 
 export const BasicExample = () => {
@@ -80,9 +85,9 @@ export const BasicExample = () => {
               The secret to great public speaking, according to former actor Martin Danielson, is as
               simple as one, two, three.
             </Text>
-            <Flex cs={{gap: system.gap.md}}>
+            <div className={actionsStyles}>
               <Modal.CloseButton as={PrimaryButton}>Learn More</Modal.CloseButton>
-            </Flex>
+            </div>
           </Modal.Body>
         </Modal.Card>
       </Modal.Overlay>

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import {Box, Grid} from '@workday/canvas-kit-react/layout';
+import {Grid} from '@workday/canvas-kit-react/layout';
 import {BodyText, Heading} from '@workday/canvas-kit-react/text';
 import {createStencil, createStyles, px2rem} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
@@ -34,11 +34,25 @@ const boxStyles = createStencil({
   }),
 });
 
+const labelSkeletonStyles = createStyles({
+  boxSizing: 'border-box',
+  backgroundColor: system.color.surface.default,
+  width: px2rem(120),
+  height: px2rem(12),
+});
+
+const inputSkeletonStyles = createStyles({
+  boxSizing: 'border-box',
+  border: `${px2rem(1)} solid ${system.color.brand.border.primary}`,
+  width: '100%',
+  height: px2rem(20),
+});
+
 export const FullWidthWith3Columns = () => (
   <Grid cs={gridStyles}>
-    <Box cs={boxHeadingStyles({gridArea: 'Heading'})}>
+    <div {...boxHeadingStyles({gridArea: 'Heading'})}>
       <Heading size="medium">Full Width With 3 Columns</Heading>
-    </Box>
+    </div>
     <FormSkeleton area="FormLeft" text="Form - Left Third" />
     <FormSkeleton area="FormCenter" text="Form - Center Third" />
     <FormSkeleton area="FormRight" text="Form - Right Third" />
@@ -46,27 +60,15 @@ export const FullWidthWith3Columns = () => (
 );
 
 const FormSkeleton = ({area, text}) => (
-  <Box cs={boxStyles({gridArea: area})}>
+  <div {...boxStyles({gridArea: area})}>
     <BodyText size="small" fontWeight="bold">
       {text}
     </BodyText>
     {Array.from({length: 5}).map(() => (
       <Grid cs={{gridGap: system.gap.sm, marginBlockEnd: px2rem(20)}}>
-        <Box
-          cs={{
-            backgroundColor: system.color.surface.default,
-            width: px2rem(120),
-            height: px2rem(12),
-          }}
-        />
-        <Box
-          cs={{
-            border: `${px2rem(1)} solid ${system.color.brand.border.primary}`,
-            width: '100%',
-            height: px2rem(20),
-          }}
-        />
+        <div className={labelSkeletonStyles} />
+        <div className={inputSkeletonStyles} />
       </Grid>
     ))}
-  </Box>
+  </div>
 );

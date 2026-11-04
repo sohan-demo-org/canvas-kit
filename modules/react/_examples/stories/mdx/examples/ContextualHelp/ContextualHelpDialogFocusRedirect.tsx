@@ -4,7 +4,6 @@ import {Hyperlink, TertiaryButton} from '@workday/canvas-kit-react/button';
 import {useUniqueId} from '@workday/canvas-kit-react/common';
 import {Dialog, useDialogModel} from '@workday/canvas-kit-react/dialog';
 import {FormField} from '@workday/canvas-kit-react/form-field';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {
   useCloseOnEscape,
   useCloseOnOutsideClick,
@@ -18,9 +17,24 @@ import {createStyles} from '@workday/canvas-kit-styling';
 import {infoIcon} from '@workday/canvas-system-icons-web';
 import {system} from '@workday/canvas-tokens-web';
 
+const outerContainerStyles = createStyles({
+  boxSizing: 'border-box',
+  display: 'flex',
+});
+
 const containerStyles = createStyles({
+  boxSizing: 'border-box',
+  display: 'flex',
   flexDirection: 'row',
   gap: system.gap.sm,
+});
+
+const linkContainerStyles = createStyles({
+  boxSizing: 'border-box',
+  display: 'flex',
+  gap: system.gap.md,
+  padding: system.padding.xs,
+  marginBlockStart: system.gap.sm,
 });
 
 const labelStyles = createStyles({
@@ -39,9 +53,9 @@ export function ContextualHelpDialogFocusRedirect() {
   const labelId = useUniqueId();
 
   return (
-    <Flex>
+    <div className={outerContainerStyles}>
       <FormField>
-        <Flex className={containerStyles}>
+        <div className={containerStyles}>
           <FormField.Label className={labelStyles} id={labelId}>
             Country
           </FormField.Label>
@@ -63,23 +77,17 @@ export function ContextualHelpDialogFocusRedirect() {
                 <Dialog.Body>
                   This dialog does not trap focus, so tabbing out of it will cause it to close
                 </Dialog.Body>
-                <Flex
-                  cs={{
-                    gap: system.gap.md,
-                    padding: system.padding.xs,
-                    marginBlockStart: system.gap.sm,
-                  }}
-                >
+                <div className={linkContainerStyles}>
                   <Hyperlink href="/">Link</Hyperlink>
-                </Flex>
+                </div>
               </Dialog.Card>
             </Dialog.Popper>
           </Dialog>
-        </Flex>
+        </div>
         <FormField.Field>
           <FormField.Input as={TextInput} />
         </FormField.Field>
       </FormField>
-    </Flex>
+    </div>
   );
 }
