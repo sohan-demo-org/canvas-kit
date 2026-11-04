@@ -6,15 +6,16 @@ import {
   useSidePanel,
 } from '@workday/canvas-kit-preview-react/side-panel';
 import {AccessibleHide} from '@workday/canvas-kit-react/common';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {Text} from '@workday/canvas-kit-react/text';
 import {createStyles, px2rem} from '@workday/canvas-kit-styling';
 
 const stylesOverride = {
   viewport: createStyles({
+    display: 'flex',
     height: px2rem(320),
   }),
   main: createStyles({
+    display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'column',
@@ -33,16 +34,16 @@ export const OnStateTransition = () => {
   };
 
   return (
-    <Flex cs={stylesOverride.viewport}>
+    <div className={stylesOverride.viewport}>
       <SidePanel {...panelProps} onStateTransition={handleStateTransition}>
         <SidePanel.ToggleButton {...controlProps} />
         <AccessibleHide {...labelProps}>Hidden Title</AccessibleHide>
       </SidePanel>
-      <Flex as="main" cs={stylesOverride.main}>
+      <main className={stylesOverride.main}>
         <Text as="p" typeLevel="body.large">
           Side panel is {transitionState}.
         </Text>
-      </Flex>
-    </Flex>
+      </main>
+    </div>
   );
 };
