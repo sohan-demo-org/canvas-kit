@@ -3,10 +3,20 @@ import React from 'react';
 import {ActionBar, useActionBarModel} from '@workday/canvas-kit-react/action-bar';
 import {PrimaryButton} from '@workday/canvas-kit-react/button';
 import {breakpoints} from '@workday/canvas-kit-react/common';
-import {Box} from '@workday/canvas-kit-react/layout';
 import {SegmentedControl} from '@workday/canvas-kit-react/segmented-control';
-import {px2rem} from '@workday/canvas-kit-styling';
+import {createStencil, px2rem} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
+
+const containerStencil = createStencil({
+  vars: {
+    maxWidth: '100%',
+  },
+  base: ({maxWidth}) => ({
+    boxSizing: 'border-box',
+    maxWidth,
+    marginBlockEnd: system.gap.xxl,
+  }),
+});
 
 type MyActionItem = {
   id: string;
@@ -27,7 +37,7 @@ export const OverflowActionBar = () => {
 
   return (
     <div>
-      <Box cs={{maxWidth: containerWidth, marginBlockEnd: system.gap.xxl}}>
+      <div {...containerStencil({maxWidth: String(containerWidth)})}>
         <ActionBar model={model}>
           <ActionBar.List
             position="relative"
@@ -56,7 +66,7 @@ export const OverflowActionBar = () => {
             </ActionBar.Menu.Card>
           </ActionBar.Menu.Popper>
         </ActionBar>
-      </Box>
+      </div>
       <footer>
         <h4>Change Action Bar container size</h4>
         <SegmentedControl onSelect={data => setContainerWidth(data.id)}>
