@@ -2,7 +2,6 @@ import React from 'react';
 
 import {DeleteButton} from '@workday/canvas-kit-react/button';
 import {useUniqueId} from '@workday/canvas-kit-react/common';
-import {Box, Flex} from '@workday/canvas-kit-react/layout';
 import {Modal, useModalModel} from '@workday/canvas-kit-react/modal';
 import {Heading, Text} from '@workday/canvas-kit-react/text';
 import {Tooltip} from '@workday/canvas-kit-react/tooltip';
@@ -22,6 +21,7 @@ const emptyStateStyles = createStyles({
 });
 
 const listStyles = createStyles({
+  display: 'flex',
   flexDirection: 'column',
   gap: system.gap.md,
   marginBlock: '0',
@@ -31,6 +31,7 @@ const listStyles = createStyles({
 });
 
 const rowStyles = createStyles({
+  display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
   gap: system.gap.md,
@@ -107,11 +108,11 @@ export const ReturnFocus = () => {
       <Heading as="h4" size="small" cs={headingStyles}>
         Uploaded Files
       </Heading>
-      <Box>
+      <div>
         {items.length > 0 ? (
-          <Flex as="ul" cs={listStyles}>
+          <ul className={listStyles}>
             {items.map((name, index) => (
-              <Flex as="li" key={name} cs={rowStyles}>
+              <li key={name} className={rowStyles}>
                 <Text as="span" id={fileNameId(name)}>
                   {name}
                 </Text>
@@ -125,15 +126,15 @@ export const ReturnFocus = () => {
                     onClick={() => openDeleteModal(index)}
                   />
                 </Tooltip>
-              </Flex>
+              </li>
             ))}
-          </Flex>
+          </ul>
         ) : (
-          <Box ref={emptyStateRef} tabIndex={-1} cs={emptyStateStyles}>
+          <div ref={emptyStateRef} tabIndex={-1} className={emptyStateStyles}>
             <Text>No files remaining.</Text>
-          </Box>
+          </div>
         )}
-      </Box>
+      </div>
       <Modal.Overlay>
         <Modal.Card aria-describedby={bodyTextId}>
           <Modal.Heading>Delete file?</Modal.Heading>
