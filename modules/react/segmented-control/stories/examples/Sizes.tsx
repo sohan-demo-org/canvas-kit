@@ -1,4 +1,3 @@
-import {Box} from '@workday/canvas-kit-react/layout';
 import {SegmentedControl} from '@workday/canvas-kit-react/segmented-control';
 import {BodyText} from '@workday/canvas-kit-react/text';
 import {
@@ -11,7 +10,7 @@ import {system} from '@workday/canvas-tokens-web';
 
 export const Sizes = () => (
   <>
-    <Box>
+    <div>
       <BodyText size="medium" cs={{marginBlockStart: 0, fontWeight: system.fontWeight.bold}}>
         Small
       </BodyText>
@@ -31,8 +30,8 @@ export const Sizes = () => (
           </SegmentedControl.Item>
         </SegmentedControl.List>
       </SegmentedControl>
-    </Box>
-    <Box>
+    </div>
+    <div>
       <BodyText size="medium" fontWeight="bold">
         Medium
       </BodyText>
@@ -52,8 +51,8 @@ export const Sizes = () => (
           </SegmentedControl.Item>
         </SegmentedControl.List>
       </SegmentedControl>
-    </Box>
-    <Box>
+    </div>
+    <div>
       <BodyText size="medium" fontWeight="bold">
         Large
       </BodyText>
@@ -73,6 +72,6 @@ export const Sizes = () => (
           </SegmentedControl.Item>
         </SegmentedControl.List>
       </SegmentedControl>
-    </Box>
+    </div>
   </>
 );
