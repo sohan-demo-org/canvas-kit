@@ -9,8 +9,7 @@ import {
   useListModel,
 } from '@workday/canvas-kit-react/collection';
 import {composeHooks} from '@workday/canvas-kit-react/common';
-import {Box, Flex} from '@workday/canvas-kit-react/layout';
-import {px2rem} from '@workday/canvas-kit-styling';
+import {createStyles, px2rem} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
 
 function pickRandom<T>(arr: T[]): T {
@@ -18,6 +17,37 @@ function pickRandom<T>(arr: T[]): T {
 }
 
 const useListItem = composeHooks(useListItemSelect, useListItemRovingFocus);
+
+const containerStyles = createStyles({
+  boxSizing: 'border-box',
+  display: 'flex',
+  gap: system.gap.xl,
+});
+
+const columnStyles = createStyles({
+  boxSizing: 'border-box',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 0,
+});
+
+const listBoxStyles = createStyles({
+  maxHeight: px2rem(400),
+  width: px2rem(300),
+});
+
+const listBoxItemStyles = createStyles({
+  boxSizing: 'border-box',
+  height: px2rem(20),
+  background: 'transparent',
+  border: 'none',
+});
+
+const eventsListStyles = createStyles({
+  boxSizing: 'border-box',
+  maxHeight: px2rem(400),
+  overflowY: 'auto',
+});
 
 const colors = ['Blue', 'Red', 'Purple', 'Green', 'Pink'];
 const fruits = ['Apple', 'Orange', 'Banana', 'Grape', 'Lemon', 'Lime'];
@@ -63,32 +93,30 @@ export const DataLoader = () => {
   );
 
   return (
-    <Flex cs={{gap: system.gap.xl}}>
-      <Flex cs={{flexDirection: 'column', gap: 0}}>
+    <div className={containerStyles}>
+      <div className={columnStyles}>
         <p>Scroll or focus and use keys to navigate</p>
-        <ListBox model={model} cs={{maxHeight: px2rem(400), width: px2rem(300)}}>
+        <ListBox model={model} cs={listBoxStyles}>
           {item => (
             <ListBox.Item
               as="button"
               role="listitem"
               elemPropsHook={useListItem}
-              height={20}
-              background="transparent"
-              border="none"
+              cs={listBoxItemStyles}
             >
               {item}
             </ListBox.Item>
           )}
         </ListBox>
-      </Flex>
-      <Flex cs={{flexDirection: 'column', gap: 0}}>
+      </div>
+      <div className={columnStyles}>
         <p>Events:</p>
-        <Box as="ul" cs={{maxHeight: px2rem(400), overflowY: 'auto'}}>
+        <ul className={eventsListStyles}>
           {messages.map(message => (
             <li key={message}>{message}</li>
           ))}
-        </Box>
-      </Flex>
-    </Flex>
+        </ul>
+      </div>
+    </div>
   );
 };
