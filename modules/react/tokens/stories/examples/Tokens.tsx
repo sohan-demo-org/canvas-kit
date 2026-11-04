@@ -2,29 +2,62 @@ import styled from '@emotion/styled';
 import * as React from 'react';
 
 import {pickForegroundColor} from '@workday/canvas-kit-react/common';
-import {Box, Flex} from '@workday/canvas-kit-react/layout';
 import {Text} from '@workday/canvas-kit-react/text';
 import {borderRadius, colors, depth, space, type} from '@workday/canvas-kit-react/tokens';
+import {createStencil, createStyles, px2rem} from '@workday/canvas-kit-styling';
+import {system} from '@workday/canvas-tokens-web';
+
+const depthCardStencil = createStencil({
+  base: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: px2rem(200),
+    height: px2rem(200),
+    borderRadius: px2rem(2),
+    backgroundColor: system.color.surface.default,
+  },
+  modifiers: {
+    depth: {
+      none: depth.none,
+      1: depth[1],
+      2: depth[2],
+      3: depth[3],
+      4: depth[4],
+      5: depth[5],
+      6: depth[6],
+    },
+  },
+});
+
+const depthContainerStyles = createStyles({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: system.gap.lg,
+});
+
+const depthRowStyles = createStyles({
+  display: 'flex',
+  flexWrap: 'wrap',
+  gap: system.gap.lg,
+});
+
+const depthColoredRowStyles = createStyles({
+  boxSizing: 'border-box',
+  display: 'flex',
+  flexWrap: 'wrap',
+  gap: system.gap.lg,
+  padding: system.padding.xl,
+  backgroundColor: colors.soap400,
+});
 
 const DepthCard = ({depth, children}) => {
-  return (
-    <Flex
-      depth={depth}
-      width={200}
-      height={200}
-      borderRadius="s"
-      alignItems="center"
-      justifyContent="center"
-      backgroundColor="frenchVanilla100"
-    >
-      {children}
-    </Flex>
-  );
+  return <div {...depthCardStencil({depth})}>{children}</div>;
 };
 
 export const Depth = () => (
-  <Flex gap="m" flexDirection="column">
-    <Flex gap="m" flexWrap="wrap">
+  <div className={depthContainerStyles}>
+    <div className={depthRowStyles}>
       <DepthCard depth="none">Depth None</DepthCard>
       <DepthCard depth={1}>Depth 1</DepthCard>
       <DepthCard depth={2}>Depth 2</DepthCard>
@@ -32,9 +65,9 @@ export const Depth = () => (
       <DepthCard depth={4}>Depth 4</DepthCard>
       <DepthCard depth={5}>Depth 5</DepthCard>
       <DepthCard depth={6}>Depth 6</DepthCard>
-    </Flex>
+    </div>
     <Text>Depth on a colored background</Text>
-    <Flex backgroundColor="soap400" gap="m" padding="m" flexWrap="wrap">
+    <div className={depthColoredRowStyles}>
       <DepthCard depth="none">Depth None</DepthCard>
       <DepthCard depth={1}>Depth 1</DepthCard>
       <DepthCard depth={2}>Depth 2</DepthCard>
@@ -42,8 +75,8 @@ export const Depth = () => (
       <DepthCard depth={4}>Depth 4</DepthCard>
       <DepthCard depth={5}>Depth 5</DepthCard>
       <DepthCard depth={6}>Depth 6</DepthCard>
-    </Flex>
-  </Flex>
+    </div>
+  </div>
 );
 
 // Ignore all `styled` as tokens are deprecated and will be removed in the future major version.
@@ -92,9 +125,9 @@ const StyledSmallSubtext = styled('h3')({
   ...type.levels.subtext.small,
 });
 
-const StyledVariantsContainer = styled(Box)({
+const variantsContainerStyles = createStyles({
   ...type.levels.body.medium,
-  '& > *': {display: 'block', margin: '4px 0'},
+  '& > *': {display: 'block', marginBlock: system.gap.xs, marginInline: 0},
 });
 
 const StyledErrorText = styled('span')({
@@ -135,13 +168,17 @@ export const Type = () => (
     <hr />
 
     <h3>Variants</h3>
-    <StyledVariantsContainer>
+    <div className={variantsContainerStyles}>
       <StyledErrorText>Error Text</StyledErrorText>
       <StyledHintText>Hint Text</StyledHintText>
       <StyledInverseText>Inverse Text</StyledInverseText>
-    </StyledVariantsContainer>
+    </div>
   </React.Fragment>
 );
+
+const rowStyles = createStyles({
+  display: 'flex',
+});
 
 const Shape = styled('div')<{radius?: string | number; size?: string | number}>(
   {
@@ -186,13 +223,13 @@ const SizeLabel = styled('div')({
 export const BorderRadius = () => (
   <React.Fragment>
     {Object.keys(borderRadius).map(size => (
-      <Flex key={size}>
+      <div key={size} className={rowStyles}>
         <SizeLabel>
           {size}
           <span>({borderRadius[size]})</span>
         </SizeLabel>
         <Shape radius={borderRadius[size]} />
-      </Flex>
+      </div>
     ))}
   </React.Fragment>
 );
@@ -200,13 +237,13 @@ export const BorderRadius = () => (
 export const Space = () => (
   <React.Fragment>
     {Object.keys(space).map(size => (
-      <Flex key={size}>
+      <div key={size} className={rowStyles}>
         <SizeLabel>
           {size}
           <span>({(space as any)[size]})</span>
         </SizeLabel>
         <Shape size={(space as any)[size]} radius={borderRadius.m} />
-      </Flex>
+      </div>
     ))}
   </React.Fragment>
 );
