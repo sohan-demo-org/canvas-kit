@@ -1,11 +1,20 @@
 import React from 'react';
 
-import {Box} from '@workday/canvas-kit-react/layout';
 import {SegmentedControl} from '@workday/canvas-kit-react/segmented-control';
 import {Tabs, useTabsModel} from '@workday/canvas-kit-react/tabs';
 import {Heading} from '@workday/canvas-kit-react/text';
-import {px2rem} from '@workday/canvas-kit-styling';
+import {createStencil, px2rem} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
+
+const tabsContainerStencil = createStencil({
+  vars: {
+    width: '100%',
+  },
+  base: ({width}) => ({
+    width,
+    marginBlockEnd: system.gap.xl,
+  }),
+});
 
 type MyTabItem = {
   contextId: string;
@@ -30,7 +39,7 @@ export const OverflowTabs = () => {
   const [containerWidth, setContainerWidth] = React.useState('100%');
   return (
     <div>
-      <Box cs={{width: containerWidth, marginBlockEnd: system.gap.xl}}>
+      <div {...tabsContainerStencil({width: containerWidth})}>
         <Tabs model={model}>
           <Tabs.List overflowButton={<Tabs.OverflowButton>More</Tabs.OverflowButton>}>
             {(item: MyTabItem) => <Tabs.Item>{item.text}</Tabs.Item>}
@@ -50,7 +59,7 @@ export const OverflowTabs = () => {
             )}
           </Tabs.Panels>
         </Tabs>
-      </Box>
+      </div>
       <hr />
       <Heading size="small" as="h4">
         Change Tabs container size
