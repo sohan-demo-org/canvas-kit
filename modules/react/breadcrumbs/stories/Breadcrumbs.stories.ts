@@ -28,6 +28,13 @@ export const Basic: Story = {
 export const OverflowBreadcrumbs: Story = {
   // @ts-ignore Storybook doesn't allow the use of props within components
   render: OverflowBreadcrumbsExample,
+  parameters: {
+    docs: {
+      // The dynamic source snippet serializes the `model` prop, which references live DOM nodes
+      // once the menu opens and freezes the page.
+      source: {type: 'code'},
+    },
+  },
 };
 export const RTLOverflowList: Story = {
   render: RTLOverflowListExample,
