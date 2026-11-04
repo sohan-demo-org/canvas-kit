@@ -1,23 +1,24 @@
 import {StatusIndicator} from '@workday/canvas-kit-preview-react/status-indicator';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {createStyles} from '@workday/canvas-kit-styling';
 import {cloudArrowUpIcon} from '@workday/canvas-system-icons-web';
 import {system} from '@workday/canvas-tokens-web';
 
 const styleOverrides = {
   parentContainerStyles: createStyles({
+    display: 'flex',
     gap: system.gap.md,
     flexDirection: 'column',
   }),
   innerContainerStyles: createStyles({
+    display: 'flex',
     gap: system.gap.md,
   }),
 };
 
 export const Variants = () => {
   return (
-    <Flex cs={styleOverrides.parentContainerStyles}>
-      <Flex cs={styleOverrides.innerContainerStyles}>
+    <div className={styleOverrides.parentContainerStyles}>
+      <div className={styleOverrides.innerContainerStyles}>
         <StatusIndicator>
           <StatusIndicator.Label>Lorem ipsum dolor</StatusIndicator.Label>
           <StatusIndicator.Icon icon={cloudArrowUpIcon} />
@@ -42,8 +43,8 @@ export const Variants = () => {
           <StatusIndicator.Label>Lorem ipsum dolor</StatusIndicator.Label>
           <StatusIndicator.Icon icon={cloudArrowUpIcon} />
         </StatusIndicator>
-      </Flex>
-      <Flex cs={styleOverrides.innerContainerStyles}>
+      </div>
+      <div className={styleOverrides.innerContainerStyles}>
         <StatusIndicator emphasis="high">
           <StatusIndicator.Label>Lorem ipsum dolor</StatusIndicator.Label>
           <StatusIndicator.Icon icon={cloudArrowUpIcon} />
@@ -68,7 +69,7 @@ export const Variants = () => {
           <StatusIndicator.Label>Lorem ipsum dolor</StatusIndicator.Label>
           <StatusIndicator.Icon icon={cloudArrowUpIcon} />
         </StatusIndicator>
-      </Flex>
-    </Flex>
+      </div>
+    </div>
   );
 };
