@@ -1,7 +1,8 @@
+import * as React from 'react';
+
 import {ExtractProps, createComponent} from '@workday/canvas-kit-react/common';
-import {Box, BoxProps} from '@workday/canvas-kit-react/layout';
 import {Heading} from '@workday/canvas-kit-react/text';
-import {createStyles} from '@workday/canvas-kit-styling';
+import {CSProps, createStyles, handleCsProp} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
 
 // Extend Heading Props and omitting size since we've added a default
@@ -17,8 +18,14 @@ export const CardHeading = createComponent('h2')({
   },
 });
 
-// Extend Box Props for customization
-interface CardProps extends BoxProps {}
+const cardBaseStyles = createStyles({
+  boxSizing: 'border-box',
+});
+
+// Extend CSProps so the `cs` prop can be used for customization
+interface CardProps extends CSProps {
+  children?: React.ReactNode;
+}
 export const Card = createComponent('div')({
   displayName: 'Card',
   subComponents: {
@@ -26,9 +33,9 @@ export const Card = createComponent('div')({
   },
   Component: ({children, ...elemProps}: CardProps, ref, Element) => {
     return (
-      <Box as={Element} {...elemProps} ref={ref}>
+      <Element ref={ref} {...handleCsProp(elemProps, cardBaseStyles)}>
         {children}
-      </Box>
+      </Element>
     );
   },
 });
