@@ -1,7 +1,10 @@
 import {Banner} from '@workday/canvas-kit-react/banner';
-import {Box} from '@workday/canvas-kit-react/layout';
 import {createStyles} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
+
+const wrapperStyles = createStyles({
+  height: system.size.xxl,
+});
 
 const containerStyles = createStyles({
   position: 'absolute',
@@ -10,12 +13,12 @@ const containerStyles = createStyles({
 
 export const Sticky = () => {
   return (
-    <Box cs={{height: system.size.xxl}}>
+    <div className={wrapperStyles}>
       <Banner hasError={true} isSticky={true} cs={containerStyles}>
         <Banner.Icon />
         <Banner.Label>3 Errors</Banner.Label>
         <Banner.ActionText />
       </Banner>
-    </Box>
+    </div>
   );
 };
