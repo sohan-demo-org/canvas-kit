@@ -1,6 +1,10 @@
 import {PrimaryButton} from '@workday/canvas-kit-react/button';
-import {Box} from '@workday/canvas-kit-react/layout';
 import {Modal} from '@workday/canvas-kit-react/modal';
+import {createStyles} from '@workday/canvas-kit-styling';
+
+const paragraphStyles = createStyles({
+  marginBlock: '0',
+});
 
 export const Basic = () => {
   const handleAcknowledge = () => {
@@ -19,10 +23,10 @@ export const Basic = () => {
           <Modal.CloseIcon aria-label="Close" />
           <Modal.Heading>MIT License</Modal.Heading>
           <Modal.Body>
-            <Box as="p" cs={{marginBlock: '0'}}>
+            <p className={paragraphStyles}>
               Permission is hereby granted, free of charge, to any person obtaining a copy of this
               software and associated documentation files (the "Software").
-            </Box>
+            </p>
           </Modal.Body>
           <Modal.ButtonGroup>
             <Modal.CloseButton onClick={handleCancel}>Cancel</Modal.CloseButton>
