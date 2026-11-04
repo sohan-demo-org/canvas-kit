@@ -2,7 +2,6 @@ import React from 'react';
 
 import {PrimaryButton} from '@workday/canvas-kit-react/button';
 import {CanvasProvider} from '@workday/canvas-kit-react/common';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {Heading} from '@workday/canvas-kit-react/text';
 import {Tooltip} from '@workday/canvas-kit-react/tooltip';
 import {createStyles} from '@workday/canvas-kit-styling';
@@ -14,6 +13,7 @@ import {
 import {brand, system} from '@workday/canvas-tokens-web';
 
 const parentContainerStyles = createStyles({
+  display: 'flex',
   gap: system.gap.md,
   padding: system.padding.md,
 });
@@ -41,7 +41,7 @@ export const ThemeOverrides = () => (
         },
       }}
     >
-      <Flex cs={parentContainerStyles}>
+      <div className={parentContainerStyles}>
         <PrimaryButton>Primary</PrimaryButton>
         <PrimaryButton icon={plusIcon} iconPosition="start">
           Primary
@@ -52,13 +52,13 @@ export const ThemeOverrides = () => (
         <Tooltip title="Related Actions">
           <PrimaryButton icon={relatedActionsVerticalIcon} />
         </Tooltip>
-      </Flex>
+      </div>
     </CanvasProvider>
     <Heading size="medium" as="h3">
       Override Action Color Via CSS Action Token
     </Heading>
     <div className={customActionTheme}>
-      <Flex cs={parentContainerStyles}>
+      <div className={parentContainerStyles}>
         <PrimaryButton>Primary</PrimaryButton>
         <PrimaryButton icon={plusIcon} iconPosition="start">
           Primary
@@ -69,7 +69,7 @@ export const ThemeOverrides = () => (
         <Tooltip title="Related Actions">
           <PrimaryButton icon={relatedActionsVerticalIcon} />
         </Tooltip>
-      </Flex>
+      </div>
     </div>
   </div>
 );
