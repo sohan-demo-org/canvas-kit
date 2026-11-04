@@ -2,14 +2,17 @@ import * as React from 'react';
 
 import {Breadcrumbs} from '@workday/canvas-kit-react/breadcrumbs';
 import {CanvasProvider} from '@workday/canvas-kit-react/common';
-import {Box} from '@workday/canvas-kit-react/layout';
-import {px2rem} from '@workday/canvas-kit-styling';
+import {createStyles, px2rem} from '@workday/canvas-kit-styling';
 
 export interface Breadcrumb {
   id: string;
   link?: string;
   text: string;
 }
+
+const containerStyles = createStyles({
+  maxWidth: px2rem(300),
+});
 
 export const RTLOverflowList = () => {
   const [items] = React.useState<Breadcrumb[]>([
@@ -23,7 +26,7 @@ export const RTLOverflowList = () => {
 
   return (
     <CanvasProvider dir="rtl">
-      <Box cs={{maxWidth: px2rem(300)}}>
+      <div className={containerStyles}>
         <Breadcrumbs items={items} aria-label="Breadcrumbs">
           <Breadcrumbs.List overflowButton={<Breadcrumbs.OverflowButton aria-label="More links" />}>
             {item =>
@@ -48,7 +51,7 @@ export const RTLOverflowList = () => {
             </Breadcrumbs.Menu.Card>
           </Breadcrumbs.Menu.Popper>
         </Breadcrumbs>
-      </Box>
+      </div>
     </CanvasProvider>
   );
 };
