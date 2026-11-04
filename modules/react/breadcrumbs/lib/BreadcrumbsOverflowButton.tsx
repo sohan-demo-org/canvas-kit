@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 import {TertiaryButton, TertiaryButtonProps} from '@workday/canvas-kit-react/button';
 import {useOverflowListTarget} from '@workday/canvas-kit-react/collection';
 import {
@@ -66,7 +68,7 @@ export const BreadcrumbsOverflowButton = createSubcomponent('button')({
   elemPropsHook: useBreadcrumbsOverflowButton,
 })<BreadcrumbsOverflowButtonProps>(({style, ...elemProps}, Element) => {
   return (
-    <li {...breadcrumbsOverflowButtonStencil()} {...style}>
+    <li {...breadcrumbsOverflowButtonStencil()} style={style as React.CSSProperties}>
       <TertiaryButton
         as={Element}
         icon={relatedActionsIcon}

@@ -171,7 +171,7 @@ export const WithOverflowMenuHavingTwoItems = {
             return (
               <Breadcrumbs items={props.items} aria-label="Breadcrumbs">
                 <Breadcrumbs.List
-                  maxWidth={props.maxWidth}
+                  cs={breadcrumbsListStencil({maxWidth: px2rem(props.maxWidth)})}
                   overflowButton={<Breadcrumbs.OverflowButton aria-label="More links" />}
                 >
                   {item =>
