@@ -1,13 +1,21 @@
 import {Hyperlink} from '@workday/canvas-kit-react/button';
-import {Box} from '@workday/canvas-kit-react/layout';
 import {
   ComponentStatesTable,
   StaticStates,
   permutateProps,
 } from '@workday/canvas-kit-react/testing';
+import {createStyles} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
 
 import {Container} from './utils';
+
+const subtextStyles = createStyles({
+  ...system.type.subtext.lg,
+});
+
+const inverseTextStyles = createStyles({
+  color: system.color.fg.inverse,
+});
 
 export default {
   title: 'Testing/Buttons/Button/Hyperlink',
@@ -48,14 +56,11 @@ export const HyperlinkStates = {
       >
         {(props: any) => (
           <Container blue={props.variant === 'inverse'}>
-            <Box cs={{...system.type.subtext.lg}}>
-              <Box
-                as="span"
-                cs={{color: props.variant === 'inverse' ? system.color.fg.inverse : undefined}}
-              >
+            <div className={subtextStyles}>
+              <span className={props.variant === 'inverse' ? inverseTextStyles : undefined}>
                 Here's a <Hyperlink {...props}>Link</Hyperlink> to something
-              </Box>
-            </Box>
+              </span>
+            </div>
           </Container>
         )}
       </ComponentStatesTable>
