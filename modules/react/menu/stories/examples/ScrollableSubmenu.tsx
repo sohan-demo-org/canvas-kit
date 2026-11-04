@@ -1,11 +1,10 @@
 import {CanvasProvider} from '@workday/canvas-kit-react/common';
-import {Flex} from '@workday/canvas-kit-react/layout';
 import {Menu, menuCardStencil} from '@workday/canvas-kit-react/menu';
 import {PopperProps} from '@workday/canvas-kit-react/popup';
 import {createStencil, createStyles, px2rem} from '@workday/canvas-kit-styling';
 
 const containerStencil = createStencil({
-  base: {},
+  base: {display: 'flex'},
   modifiers: {
     atEnd: {true: {justifyContent: 'flex-end'}},
     alignBottom: {true: {position: 'fixed', bottom: 0, left: 0, right: 0}},
@@ -30,7 +29,7 @@ export const ScrollableSubmenu = ({
   submenuPopperProps?: Pick<PopperProps, 'placement' | 'fallbackPlacements' | 'popperOptions'>;
 }) => (
   <CanvasProvider dir={dir}>
-    <Flex cs={containerStencil({atEnd, alignBottom})}>
+    <div {...containerStencil({atEnd, alignBottom})}>
       <Menu>
         <Menu.Target>Open Menu</Menu.Target>
         <Menu.Popper>
@@ -64,6 +63,6 @@ export const ScrollableSubmenu = ({
           </Menu.Card>
         </Menu.Popper>
       </Menu>
-    </Flex>
+    </div>
   </CanvasProvider>
 );
