@@ -1,9 +1,14 @@
-import {Box} from '@workday/canvas-kit-react/layout';
 import {Text} from '@workday/canvas-kit-react/text';
+import {createStyles} from '@workday/canvas-kit-styling';
 import {system} from '@workday/canvas-tokens-web';
 
+const inheritedStyles = createStyles({
+  ...system.type.subtext.lg,
+  color: system.color.fg.muted.default,
+});
+
 export const Basic = () => (
-  <Box>
+  <div>
     <Text as="h4">Text as h4</Text>
     <Text
       as="p"
@@ -18,8 +23,8 @@ export const Basic = () => (
     <Text as="p" cs={{...system.type.subtext.lg}}>
       Text styled using type token level
     </Text>
-    <Box cs={{...system.type.subtext.lg, color: system.color.fg.muted.default}}>
+    <div className={inheritedStyles}>
       <Text>Text with inherited styles</Text>
-    </Box>
-  </Box>
+    </div>
+  </div>
 );
